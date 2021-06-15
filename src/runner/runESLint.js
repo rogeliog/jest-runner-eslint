@@ -35,6 +35,11 @@ const runESLint = ({ testPath, config, extraOptions }) => {
     require(config.setupTestFrameworkScriptFile);
   }
 
+  if (config.setupFilesAfterEnv) {
+    // eslint-disable-next-line import/no-dynamic-require,global-require
+    config.setupFilesAfterEnv.forEach(require);
+  }
+
   const { cli, formatter, cliOptions } = getCachedValues(config, extraOptions);
 
   if (cli.isPathIgnored(testPath)) {
